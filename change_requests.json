@@ -1,0 +1,175 @@
+[
+ {
+  "id": "CR-01",
+  "text": "Upgrade the SSO Gateway TLS library to 3.2. Tested in staging with full login regression. Rollback: redeploy previous container image.",
+  "components": [
+   "SSO Gateway"
+  ],
+  "rollback": true,
+  "testing": true,
+  "implicit": false
+ },
+ {
+  "id": "CR-02",
+  "text": "Patch the nightly jobs runner to fix the timezone bug. Deploy Sunday 02:00. No rollback plan yet, to be defined.",
+  "components": [
+   "Batch Scheduler"
+  ],
+  "rollback": false,
+  "testing": false,
+  "implicit": false
+ },
+ {
+  "id": "CR-03",
+  "text": "Change invoice rounding logic in the invoicing service. Unit tests pass. Rollback via feature flag.",
+  "components": [
+   "Billing API"
+  ],
+  "rollback": true,
+  "testing": true,
+  "implicit": false
+ },
+ {
+  "id": "CR-04",
+  "text": "Increase the connection pool on the customer database. Applied in production during business hours. No testing done.",
+  "components": [
+   "Customer DB"
+  ],
+  "rollback": false,
+  "testing": false,
+  "implicit": false
+ },
+ {
+  "id": "CR-05",
+  "text": "Extend audit log retention config from 90 to 365 days. Tested in dev. Revert by restoring the config.",
+  "components": [
+   "Audit Log Service"
+  ],
+  "rollback": true,
+  "testing": true,
+  "implicit": false
+ },
+ {
+  "id": "CR-06",
+  "text": "Move the email service to a new SMTP relay. Smoke test in staging passed. Rollback: switch the relay back via DNS.",
+  "components": [
+   "Notification Service"
+  ],
+  "rollback": true,
+  "testing": true,
+  "implicit": false
+ },
+ {
+  "id": "CR-07",
+  "text": "Replace the card processing endpoint URLs and rotate keys. Tested with sandbox transactions. No rollback documented.",
+  "components": [
+   "Payments Gateway"
+  ],
+  "rollback": false,
+  "testing": true,
+  "implicit": false
+ },
+ {
+  "id": "CR-08",
+  "text": "Add a department attribute to the user directory schema and adjust the single sign-on claims mapping to include it. Tested end to end in UAT. Rollback: restore schema snapshot.",
+  "components": [
+   "Identity Directory",
+   "SSO Gateway"
+  ],
+  "rollback": true,
+  "testing": true,
+  "implicit": false
+ },
+ {
+  "id": "CR-09",
+  "text": "Add a region column to the data warehouse fact table. Regression tested in the test environment; rollback script attached.",
+  "components": [
+   "Reporting DWH"
+  ],
+  "rollback": true,
+  "testing": true,
+  "implicit": false
+ },
+ {
+  "id": "CR-10",
+  "text": "Hotfix for the back-office portal permissions screen. Rolled out straight to production, we will watch the logs.",
+  "components": [
+   "Admin Portal"
+  ],
+  "rollback": false,
+  "testing": false,
+  "implicit": false
+ },
+ {
+  "id": "CR-11",
+  "text": "Decommission the old file store bucket after migrating contracts. Migration verified by checksum. Rollback: bucket retained for 30 days.",
+  "components": [
+   "Document Store"
+  ],
+  "rollback": true,
+  "testing": true,
+  "implicit": false
+ },
+ {
+  "id": "CR-12",
+  "text": "Change how the thing that sends customers their receipts batches messages, from 100 to 500 per run. Tested in staging, can be reverted by config.",
+  "components": [
+   "Notification Service"
+  ],
+  "rollback": true,
+  "testing": true,
+  "implicit": true
+ },
+ {
+  "id": "CR-13",
+  "text": "Rewrite the customer lookup queries in the CRM database for performance. Staging benchmark attached. Rollback plan: keep the old indexes.",
+  "components": [
+   "Customer DB"
+  ],
+  "rollback": true,
+  "testing": true,
+  "implicit": false
+ },
+ {
+  "id": "CR-14",
+  "text": "Update the iOS app login flow to use the new token format; the login service must accept the new token too. Tested on devices. Rollback: previous app version stays available.",
+  "components": [
+   "Mobile App",
+   "SSO Gateway"
+  ],
+  "rollback": true,
+  "testing": true,
+  "implicit": false
+ },
+ {
+  "id": "CR-15",
+  "text": "Shift the end-of-day processing window from 23:00 to 22:00 so overnight reconciliation finishes earlier. Confirmed with operations, test run in staging, can revert the schedule.",
+  "components": [
+   "Batch Scheduler"
+  ],
+  "rollback": true,
+  "testing": true,
+  "implicit": true
+ },
+ {
+  "id": "CR-16",
+  "text": "Rotate service credentials for everything that talks to payments and customer records, during the weekend. Tested rotation in staging. Rollback: previous credentials valid for 24h.",
+  "components": [
+   "Payments Gateway",
+   "Customer DB"
+  ],
+  "rollback": true,
+  "testing": true,
+  "implicit": true
+ },
+ {
+  "id": "CR-17",
+  "text": "Switch the login page to the new brand theme. Visual check done. No functional change.",
+  "components": [
+   "SSO Gateway"
+  ],
+  "rollback": false,
+  "testing": true,
+  "implicit": false
+ }
+]

@@ -1,0 +1,15 @@
+{"_comment": "Synthetic system catalog. 'depends_on' = this system consumes those systems, so a change to them can impact it.",
+ "systems": [
+  {"name": "Identity Directory", "aliases": ["identity directory", "user directory", "ldap"], "criticality": "high", "depends_on": []},
+  {"name": "SSO Gateway", "aliases": ["sso gateway", "single sign-on", "login service", "login page"], "criticality": "high", "depends_on": ["Identity Directory"]},
+  {"name": "Customer DB", "aliases": ["customer db", "customer database", "crm database"], "criticality": "high", "depends_on": []},
+  {"name": "Payments Gateway", "aliases": ["payments gateway", "card processing", "payment provider"], "criticality": "high", "depends_on": []},
+  {"name": "Billing API", "aliases": ["billing api", "invoicing service"], "criticality": "high", "depends_on": ["Customer DB", "Payments Gateway"]},
+  {"name": "Notification Service", "aliases": ["notification service", "email service", "sms service"], "criticality": "medium", "depends_on": []},
+  {"name": "Batch Scheduler", "aliases": ["batch scheduler", "nightly jobs", "job scheduler"], "criticality": "medium", "depends_on": ["Customer DB"]},
+  {"name": "Reporting DWH", "aliases": ["reporting dwh", "data warehouse", "dwh"], "criticality": "medium", "depends_on": ["Customer DB", "Batch Scheduler"]},
+  {"name": "Admin Portal", "aliases": ["admin portal", "back-office portal"], "criticality": "medium", "depends_on": ["SSO Gateway", "Customer DB", "Billing API"]},
+  {"name": "Mobile App", "aliases": ["mobile app", "ios app", "android app"], "criticality": "medium", "depends_on": ["SSO Gateway", "Billing API", "Notification Service"]},
+  {"name": "Document Store", "aliases": ["document store", "file store", "doc repository"], "criticality": "low", "depends_on": []},
+  {"name": "Audit Log Service", "aliases": ["audit log", "audit service"], "criticality": "medium", "depends_on": []}
+ ]}
